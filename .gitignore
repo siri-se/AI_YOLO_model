@@ -1,0 +1,9 @@
+env/
+runs/
+raw_photos/
+test_photos/
+frame/
+dataset/
+*.pt
+*.mp4
+*.MOV

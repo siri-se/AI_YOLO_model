@@ -1,0 +1,14 @@
+# กำหนดโฟเดอร์ที่เก็บรูปภาพ
+train: D:/learning/Mr.Ruji/AI_YOLO/dataset/images/train
+val: D:/learning/Mr.Ruji/AI_YOLO/dataset/images/val
+
+# จำนวนคลาสทั้งหมด
+nc: 5
+
+# ชื่อคลาส (เรียงลำดับให้ตรงกับเลข 0, 1, 2... ใน LabelImg)
+names:
+  0 : "HACK"
+  1 : "HALLS"
+  2 : "HB"
+  3 : "KOPIKO"
+  4 : "MYM"
