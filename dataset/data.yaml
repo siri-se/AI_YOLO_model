@@ -1,0 +1,6 @@
+path: D:\learning\Mr.Ruji\AI_YOLO\dataset
+train: images/train
+val: images/val
+
+nc: 3
+names: ['ARABUS', 'DMALT', 'SPONSOR']

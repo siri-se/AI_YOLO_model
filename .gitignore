@@ -1,9 +1,12 @@
 env/
 runs/
-raw_photos/
-test_photos/
 frame/
-dataset/
+raw_photos/*
+test_photos/*
+check.py
 *.pt
+!Model/best.pt
+project-*.json
 *.mp4
 *.MOV
+__pycache__/
