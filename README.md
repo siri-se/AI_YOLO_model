@@ -254,12 +254,6 @@ python 02-train.py
 เวลาเทรนราว **0.92 ชั่วโมง** บน GTX 1650 (4GB)
 ผลอยู่ที่ `runs/detect/can_v/weights/best.pt` แล้ว copy ไปที่ `Model/best.pt`
 
-กราฟผลการเทรน:
-
-![Training results](images/results.png)
-
-![Confusion matrix](images/confusion_matrix.png)
-
 ### 5) ทดสอบ
 
 ทุกสคริปต์โหลดโมเดลจาก `Model/best.pt`
