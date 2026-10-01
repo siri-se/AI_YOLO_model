@@ -16,7 +16,7 @@
 
 ### ผลบน Test set (75 รูปที่กันไว้ ไม่เคยเห็นตอนเทรน)
 
-นับระดับรูปจาก log (ปรับค่า `conf` ใน `03-test_image.py`)
+นับระดับรูปจาก log
 
 | ค่า conf | ตรวจเจอ | ไม่เจอ |
 |---|---|---|
@@ -26,6 +26,12 @@
 ทายยี่ห้อถูกทุกรูปที่ตรวจเจอ (นับจาก log)
 
 <!-- ใส่ภาพตัวอย่างผลทดสอบ 1-2 ภาพ เช่น ![ตัวอย่างผลทดสอบ](images/test_example_1.png) -->
+
+## Quick Start (ถ้าแค่อยากลองใช้โมเดล)
+
+1. ทำตามหัวข้อ [Installation](#installation)
+2. ดาวน์โหลด `best.pt` จากลิงก์ท้ายไฟล์ แล้ววางไว้ที่ `Model/best.pt`
+3. รัน `python 05-test-camera.py` (กล้อง) หรือใส่รูปในโฟลเดอร์ `test_photos/` แล้วรัน `python 03-test_image.py`
 
 ---
 
@@ -40,11 +46,11 @@ AI_YOLO_model/
 ├── 05-test-camera.py      # ทดสอบกับกล้อง Real-time
 ├── check.py               # เช็กว่า PyTorch ใช้ GPU (CUDA) ได้
 ├── prepare_photos.py      # ย่อรูป ตั้งชื่อ และแยกรูปทดสอบ
-├── data.yml               # config dataset สำหรับเทรน
+├── data.yml               # config dataset ที่ใช้เทรน
 ├── requirements.txt
 ├── dataset/
 │   ├── classes.txt
-│   ├── data.yaml
+│   ├── data.yaml          # สร้างอัตโนมัติจาก 01-export_dataset.py
 │   └── labels/            # label แบบ YOLO (train / val)
 └── README.md
 ```
@@ -56,6 +62,7 @@ raw_photos/<ยี่ห้อ>/       # รูปต้นฉบับที่
 frame/images/              # รูปที่ย่อแล้ว สำหรับ label (675 รูป)
 test_photos/               # รูปทดสอบที่กันไว้ (75 รูป)
 dataset/images/            # รูป train / val ที่ export แล้ว
+runs/detect/can_v/         # ผลการเทรน (best.pt, results.png ฯลฯ)
 Model/best.pt              # โมเดลที่เทรนเสร็จ (ดูลิงก์ท้ายไฟล์)
 ```
 
@@ -114,14 +121,16 @@ python check.py
 
 เตรียมรูป → Label → Export → Train → Test
 
+> รันทุกคำสั่งจากโฟลเดอร์โปรเจกต์
+
 ### 1) เตรียมรูป
 
 1. ถ่ายรูปยี่ห้อละ **250 รูป** เก็บใน `raw_photos/<ยี่ห้อ>/` (ชื่อโฟลเดอร์ใช้เป็นชื่อไฟล์ เช่น `arabus`, `dmalt`, `sponsor`)
 2. รัน
 
-   ```bash
+```bash
    python prepare_photos.py
-   ```
+```
 
    สคริปต์จะ
    - ย่อรูปให้ด้านยาวไม่เกิน 1280 px (และหมุนรูปตาม EXIF)
@@ -207,7 +216,20 @@ Val:   91 images
 
 ### 4) Training
 
-แก้ `path:` ใน `data.yml` ให้ชี้ไปที่โฟลเดอร์ `dataset` ของเครื่องคุณ แล้วรัน
+ตรวจ `data.yml` ให้ `path` ชี้ไปที่โฟลเดอร์ `dataset`
+
+```yaml
+path: dataset        # หรือ path เต็มของเครื่องคุณ
+train: images/train
+val: images/val
+nc: 3
+names:
+  0: ARABUS
+  1: DMALT
+  2: SPONSOR
+```
+
+แล้วรัน
 
 ```bash
 python 02-train.py
@@ -232,10 +254,15 @@ python 02-train.py
 เวลาเทรนราว **0.92 ชั่วโมง** บน GTX 1650 (4GB)
 ผลอยู่ที่ `runs/detect/can_v/weights/best.pt` แล้ว copy ไปที่ `Model/best.pt`
 
+กราฟผลการเทรน:
+
+![Training results](images/results.png)
+
+![Confusion matrix](images/confusion_matrix.png)
 
 ### 5) ทดสอบ
 
-ทุกสคริปต์โหลดโมเดลจาก `Model/best.pt` และควรรันจากโฟลเดอร์โปรเจกต์
+ทุกสคริปต์โหลดโมเดลจาก `Model/best.pt`
 
 **รูปภาพ**
 
@@ -296,4 +323,3 @@ python 05-test-camera.py
 
 - Dataset / รูปทดสอบ: <https://github.com/siri-se/AI_YOLO_model/tree/main/dataset/images>
 - โมเดล `best.pt`: <https://github.com/siri-se/AI_YOLO_model/blob/main/Model/best.pt>
-
