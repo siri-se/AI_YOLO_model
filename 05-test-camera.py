@@ -4,7 +4,7 @@ from ultralytics import YOLO
 def main():
 
     # โหลดโมเดลที่ผ่านการฝึก
-    model = YOLO(r"D:\learning\Mr.Ruji\AI_YOLO\best.pt")
+    model = YOLO("Model/best.pt")
 
     # เปิดใช้งานกล้องเว็บแคม
     cap = cv2.VideoCapture(0)
@@ -24,8 +24,9 @@ def main():
             # ตรวจจับด้วย YOLO และใช้ GPU
             results = model.predict(
                 source=frame,
-                stream=True,
-                device=0
+                conf=0.35,                        # conf ขอบเขตในการตรวจจับ
+                device=0,                        # ใช้ GPU (เดิมเป็น 'cpu')
+                verbose=False,                   # ไม่พ่น log ทุกเฟรม
             )
 
             for r in results:

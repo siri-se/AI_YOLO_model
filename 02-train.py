@@ -8,8 +8,12 @@ if __name__ == '__main__':
     # เริ่มเทรนพร้อมตั้งค่า Data Augmentation เพื่อแก้ปัญหาภาพมุมเดียว
     results = model.train(
         data='data.yml',
-        epochs=100,
+        epochs=200,
+        patience=30,          # หยุดเองถ้า 30 epochs ไม่ดีขึ้น
+        name='can_v',       # ตั้งชื่อโฟลเดอร์ผลลัพธ์
         imgsz=640,
+        batch=8,            # ลดจาก 16 (ถ้ายัง OOM ใช้ 4)
+        workers=2,          # ลดจาก 8 ประหยัด RAM
         optimizer="MuSGD",
         device=0,
 
