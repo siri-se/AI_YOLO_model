@@ -3,30 +3,6 @@
 โปรเจกต์ตรวจจับและจำแนกกระป๋องน้ำอัดลม 3 ยี่ห้อ (**ARABUS**, **DMALT**, **SPONSOR**) ด้วย **YOLO26** จากรูปภาพ วิดีโอ และกล้อง Real-time
 ใช้ [Ultralytics YOLO](https://docs.ultralytics.com/) สำหรับเทรนและทดสอบ และ [Label Studio](https://labelstud.io/) สำหรับ label รูป
 
-## ผลลัพธ์โดยย่อ
-
-### ผลบน Validation set (89 กรอบ)
-
-| Class | Precision | Recall | mAP50 | mAP50-95 |
-|---|---|---|---|---|
-| **All** | 0.940 | 0.932 | 0.978 | 0.842 |
-| ARABUS | 0.940 | 0.921 | 0.981 | 0.799 |
-| DMALT | 0.911 | 0.909 | 0.963 | 0.860 |
-| SPONSOR | 0.970 | 0.965 | 0.989 | 0.866 |
-
-### ผลบน Test set (75 รูปที่กันไว้ ไม่เคยเห็นตอนเทรน)
-
-นับระดับรูปจาก log
-
-| ค่า conf | ตรวจเจอ | ไม่เจอ |
-|---|---|---|
-| 0.5 | 69 / 75 | 6 |
-| 0.25 | 72 / 75 | 3 |
-
-ทายยี่ห้อถูกทุกรูปที่ตรวจเจอ (นับจาก log)
-
-<!-- ใส่ภาพตัวอย่างผลทดสอบ 1-2 ภาพ เช่น ![ตัวอย่างผลทดสอบ](images/test_example_1.png) -->
-
 ## Quick Start (ถ้าแค่อยากลองใช้โมเดล)
 
 1. ทำตามหัวข้อ [Installation](#installation)
@@ -313,7 +289,55 @@ python 05-test-camera.py
 
 ---
 
+## Result
+
+### ผลบน Validation set (89 กรอบ)
+
+| Class | Precision | Recall | mAP50 | mAP50-95 |
+|---|---|---|---|---|
+| **All** | 0.940 | 0.932 | 0.978 | 0.842 |
+| ARABUS | 0.940 | 0.921 | 0.981 | 0.799 |
+| DMALT | 0.911 | 0.909 | 0.963 | 0.860 |
+| SPONSOR | 0.970 | 0.965 | 0.989 | 0.866 |
+
+### ผลบน Test set (75 รูปที่กันไว้ ไม่เคยเห็นตอนเทรน)
+
+นับระดับรูปจาก log
+
+| ค่า conf | ตรวจเจอ | ไม่เจอ |
+|---|---|---|
+| 0.5 | 69 / 75 | 6 |
+| 0.25 | 72 / 75 | 3 |
+
+ทายยี่ห้อถูกทุกรูปที่ตรวจเจอ (นับจาก log)
+
+### รูปกระป๋องเดี่ยว
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b3ebb8d5-21ba-419f-8436-03fc0e76d6bc" width="30%" alt="arabus_test_009">
+  <img src="https://github.com/user-attachments/assets/ec5b449c-5e44-46b5-b76a-4e22abfc3196" width="30%" alt="dmalt_test_022">
+  <img src="https://github.com/user-attachments/assets/1871a395-5137-4c1b-b6a4-ffb0962cb3a5" width="30%" alt="sponsor_test_021">
+</p>
+<p align="center"><em>ซ้าย → ขวา: ARABUS, DMALT, SPONSOR</em></p>
+
+### รูปทดสอบหลายกระป๋อง
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/56b25f66-2157-4634-89db-2050d37c2bbd" width="75%" alt="รูปหลายกระป๋อง"><br>
+  <em>ตรวจจับหลายกระป๋องในภาพเดียว</em>
+</p>
+
+### ทดสอบกับกล้อง Real-time
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3c006760-1180-4c1b-b39b-923c53ecbcd4" width="60%" alt="รูปทดสอบกล้อง"><br>
+  <em>ผลจาก 05-test-camera.py (conf=0.35)</em>
+</p>
+
+---
+
 ## ลิงก์ Dataset Model
 
 - Dataset / รูปทดสอบ: <https://github.com/siri-se/AI_YOLO_model/tree/main/dataset/images>
 - โมเดล `best.pt`: <https://github.com/siri-se/AI_YOLO_model/blob/main/Model/best.pt>
+- Video  <https://drive.google.com/file/d/13YqWFmuZvXfPan93AcBzhMhvKCw990aQ/view?usp=sharing>
